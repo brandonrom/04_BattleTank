@@ -5,11 +5,32 @@
 #include "GameFramework/Pawn.h"
 
 
+ATankPlayerController::ATankPlayerController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	// AimTowardsCrossHair()
+}
+
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 	GetControlledTank();
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank()) { return; }
+
+	// Get world location if linetrace through crosshair
+	// If hits
+		// Tell controlled tank to aim at this point
+
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
