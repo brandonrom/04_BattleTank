@@ -13,7 +13,7 @@ ATankPlayerController::ATankPlayerController()
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// AimTowardsCrossHair()
+	AimTowardsCrosshair();
 }
 
 
@@ -27,10 +27,22 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	// Get world location if linetrace through crosshair
-	// If hits
-		// Tell controlled tank to aim at this point
+	FVector HitLocation; // Out Parameter
+	if (GetSightRayHitLocaiton(HitLocation))
+	{
+	UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+	// TODO Tell controlled Tank to aim at this point
+	}
 
+}
+
+
+// Get world location of linetrace through crosshair
+bool ATankPlayerController::GetSightRayHitLocaiton(FVector &OutHitLocation) const
+{
+	OutHitLocation = FVector(1.0);
+
+	return true;
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
@@ -39,12 +51,10 @@ ATank* ATankPlayerController::GetControlledTank() const
 	TempTank = Cast<ATank>(GetPawn());
 	if (TempTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank found %s"), *(TempTank->GetName()));
 		return TempTank;
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No tank found"));
 		return TempTank;
 	}
 }
