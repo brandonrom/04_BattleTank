@@ -30,7 +30,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // Out Parameter
 	if (GetSightRayHitLocaiton(HitLocation))
 	{
-	UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
+	// UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *HitLocation.ToString());
 	// TODO Tell controlled Tank to aim at this point
 	}
 
@@ -46,11 +46,31 @@ bool ATankPlayerController::GetSightRayHitLocaiton(FVector &OutHitLocation) cons
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D ScreenLocation(ViewportSizeX*CrossHairXLocation, ViewportSizeY*CrossHairYLocation);
 
-	// De-project the screen positioin of the cross hair
+	// De-project the screen position of the cross hair
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("World Direction %s"), *(LookDirection.ToString()));
+	}
+
+
 	// Line trace along that look direction, and see what is hit (up to max range)
+
+
 	return true;
 }
 
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector CameraWorldLocation; // Will be discarded
+	bool check = DeprojectScreenPositionToWorld(
+		ScreenLocation.X, 
+		ScreenLocation.Y, 
+		CameraWorldLocation, 
+		LookDirection);
+
+	return check;
+}
 
 
 ATank* ATankPlayerController::GetControlledTank() const
