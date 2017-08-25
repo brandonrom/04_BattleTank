@@ -3,8 +3,10 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "TankAimingComponent.h"
+#include "Public/TankAimingComponent.h"
 #include "Tank.generated.h" // CANNOT put new includes below
+
+class UTankBarrel;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -12,13 +14,14 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+
 	// Sets default values for this pawn's properties
 	ATank();
 
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 protected:
 	// Called when the game starts or when spawned
