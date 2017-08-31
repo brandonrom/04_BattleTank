@@ -2,7 +2,7 @@
 
 #include "Tank.h"
 
-
+// Corresponding Tank header file must be included first
 // Sets default values
 ATank::ATank()
 {
