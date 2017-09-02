@@ -2,6 +2,7 @@
 
 #include "TankAIController.h"
 #include "BattleTank.h"
+#include "Tank.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
