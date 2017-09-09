@@ -24,6 +24,7 @@ void ATankPlayerController::BeginPlay()
 	GetControlledTank();
 }
 
+
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
@@ -59,6 +60,7 @@ bool ATankPlayerController::GetSightRayHitLocaiton(FVector &OutHitLocation) cons
 	return true;
 }
 
+
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation; // Will be discarded
@@ -70,6 +72,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 
 	return check;
 }
+
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector &OutHitLocation, FVector LookDirection) const
 {
