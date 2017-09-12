@@ -50,6 +50,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 5000; 
 
+	float ReloadTimeSeconds = 3;
+
+	double LastFireTime = 0;
+
 	
 	
 };
