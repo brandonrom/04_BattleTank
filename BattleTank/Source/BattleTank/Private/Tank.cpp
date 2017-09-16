@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Public/TankBarrel.h"
 #include "Public/Projectile.h"
+#include "Public/TankMovementComponent.h"
 
 
 // Corresponding Tank header file must be included first
@@ -16,6 +17,9 @@ ATank::ATank()
 
 	// No need to protect as added at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+
+	// No need to protect as added at construction
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Tank Movement Component"));
 
 }
 
