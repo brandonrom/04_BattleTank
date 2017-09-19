@@ -23,6 +23,6 @@ public:
 
 //	ATank* GetControlledTank() const;
 	
-
+	float AcceptanceRadius = 3000;
 	
 };
