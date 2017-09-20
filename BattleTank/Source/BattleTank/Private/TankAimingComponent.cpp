@@ -19,18 +19,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
-{
-	if (!BarrelToSet) { return; };
-	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
-{
-	if (!TurretToSet) { return; };
-	Turret = TurretToSet;
-}
-
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	auto TankName = GetOwner()->GetName();
@@ -64,6 +52,14 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		// UE_LOG(LogTemp, Warning, TEXT("No aim solve found %f Tank: %s"), Time, *TankName);
 	}
 
+}
+
+void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
+{
+	if (!BarrelToSet || !TurretToSet) { return; }
+
+	Barrel = BarrelToSet;
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
