@@ -20,10 +20,13 @@ public:
 	ATankPlayerController();
 
 	virtual void Tick(float DeltaTime) override;
-
-	ATank* GetControlledTank() const;
 	
 	virtual void BeginPlay() override;
+
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+
 
 private:
 	// Start tank barrel movement
