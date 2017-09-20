@@ -26,9 +26,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurnRight(float Throw);
 
+private:
+	// called from the pathfinding logic from the AI Controller
 	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed);
 
-private:
 	UTankTracks* LeftTrack = nullptr;
 	UTankTracks* RightTrack = nullptr;
 
