@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Brandon Roman
 
 #include "Tank.h"
 #include "Public/TankAimingComponent.h"

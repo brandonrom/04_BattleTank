@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Brandon Roman
 
 #pragma once
 #include "CoreMinimal.h"
@@ -28,8 +28,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
-	// TODO Choose to keep fire here or in the aiming component
-		// If here find way to get barrel pointer
 
 protected:
 	// Called when the game starts or when spawned

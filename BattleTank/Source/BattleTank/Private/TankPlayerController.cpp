@@ -1,10 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Brandon Roman
 
 #include "TankPlayerController.h"
 #include "BattleTank.h"
 #include "Engine/World.h"
 #include "Tank.h"
 #include "GameFramework/Pawn.h"
+#include "Public/TankAimingComponent.h"
 
 
 ATankPlayerController::ATankPlayerController()
@@ -21,7 +22,16 @@ void ATankPlayerController::Tick(float DeltaTime)
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	GetControlledTank();
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller can't find aiming component at BeginPlay"));
+	}
+
 }
 
 
@@ -107,5 +117,6 @@ ATank* ATankPlayerController::GetControlledTank() const
 		return TempTank;
 	}
 }
+
 
 
