@@ -3,7 +3,6 @@
 #include "TankPlayerController.h"
 #include "BattleTank.h"
 #include "Engine/World.h"
-#include "Tank.h"
 #include "GameFramework/Pawn.h"
 #include "Public/TankAimingComponent.h"
 
@@ -13,32 +12,32 @@ ATankPlayerController::ATankPlayerController()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+
+	if (!ensure(AimingComponent)) { return; }
+	FoundAimingComponent(AimingComponent);
+}
+
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
 }
 
-void ATankPlayerController::BeginPlay()
-{
-	Super::BeginPlay();
-	ControlledTank = Cast<ATank>(GetPawn());
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(AimingComponent))
-	{
-		FoundAimingComponent(AimingComponent);
-	}
-}
 
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector OutHitLocation; // Out Parameter
 	if (GetSightRayHitLocaiton(OutHitLocation))
 	{
-		GetControlledTank()->AimAt(OutHitLocation);
+		AimingComponent->AimAt(OutHitLocation);
 	}
 
 }
@@ -65,7 +64,6 @@ bool ATankPlayerController::GetSightRayHitLocaiton(FVector &OutHitLocation) cons
 	return true;
 }
 
-
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation; // Will be discarded
@@ -77,7 +75,6 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 
 	return check;
 }
-
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector &OutHitLocation, FVector LookDirection) const
 {
@@ -99,18 +96,20 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector &OutHitLocation, FV
 }
 
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	// TODO Changed this part of Controlled Tank
-	if (ControlledTank)
+// TODO : Done : Deprecated stuff During refactor
+/*
+	ATank* ATankPlayerController::GetControlledTank() const
 	{
-		return ControlledTank;
-	}
-	else
-	{
-		return nullptr;
-	}
+		// TODO Changed this part of Controlled Tank
+		if (ControlledTank)
+		{
+			return ControlledTank;
+		}
+		else
+		{
+			return nullptr;
+		}
 }
-
+*/
 
 

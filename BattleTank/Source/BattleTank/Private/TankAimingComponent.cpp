@@ -19,7 +19,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	auto TankName = GetOwner()->GetName();
 	if (!ensure(Barrel)) return;
