@@ -51,5 +51,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
 
+	ATank* ControlledTank = nullptr;
+	// Cast<ATank>(GetPawn());
+
 };
 

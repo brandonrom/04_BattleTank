@@ -22,16 +22,12 @@ void ATankPlayerController::Tick(float DeltaTime)
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	ControlledTank = Cast<ATank>(GetPawn());
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player Controller can't find aiming component at BeginPlay"));
-	}
-
 }
 
 
@@ -44,7 +40,6 @@ void ATankPlayerController::AimTowardsCrosshair()
 	{
 		GetControlledTank()->AimAt(OutHitLocation);
 	}
-
 
 }
 
@@ -106,15 +101,14 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector &OutHitLocation, FV
 
 ATank* ATankPlayerController::GetControlledTank() const
 {
-	ATank* TempTank = nullptr;
-	TempTank = Cast<ATank>(GetPawn());
-	if (TempTank)
+	// TODO Changed this part of Controlled Tank
+	if (ControlledTank)
 	{
-		return TempTank;
+		return ControlledTank;
 	}
 	else
 	{
-		return TempTank;
+		return nullptr;
 	}
 }
 
