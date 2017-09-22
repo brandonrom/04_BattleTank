@@ -5,7 +5,6 @@
 #include "Tank.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
-#include "GameFramework/Pawn.h"
 
 void ATankAIController::BeginPlay()
 {

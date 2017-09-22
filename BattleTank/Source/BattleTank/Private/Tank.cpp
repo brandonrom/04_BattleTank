@@ -1,11 +1,10 @@
 // Copyright Brandon Roman
 
 #include "Tank.h"
-#include "Public/TankAimingComponent.h"
 #include "Engine/World.h"
+#include "Public/TankAimingComponent.h"
 #include "Public/TankBarrel.h"
 #include "Public/Projectile.h"
-#include "Public/TankMovementComponent.h"
 
 
 // Corresponding Tank header file must be included first
