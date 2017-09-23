@@ -50,8 +50,12 @@ private:
 
 	virtual void BeginPlay() override;
 
+	bool IsBarrelMoving();
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	FVector AimDirection = FVector(0);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 5000;

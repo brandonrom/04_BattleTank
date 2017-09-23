@@ -24,12 +24,19 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Aiming log ticking"));
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds)
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeSeconds)
 	{
 		FiringStatus = EFiringStatus::Reloading;
 	}
-	// TODO Handle Aiming and locked states
+	else if (IsBarrelMoving())
+	{
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else
+	{
+		FiringStatus = EFiringStatus::Locked;
+	}
+
 }
 
 void UTankAimingComponent::BeginPlay()
@@ -37,6 +44,14 @@ void UTankAimingComponent::BeginPlay()
 	Super::BeginPlay();
 	// Firest is after initial reload at the start of the game
 	LastFireTime = FPlatformTime::Seconds();
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) return false;
+	auto BarrelForwardVector = Barrel->GetForwardVector();
+
+	return BarrelForwardVector.Equals(AimDirection,.01f);
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -61,7 +76,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
 }
